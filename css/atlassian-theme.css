@@ -3032,9 +3032,9 @@ section.stripe-right::after {
   overflow: auto;
   white-space: pre-wrap;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace !important;
-  font-size: 26px;
-  line-height: 1.38;
-  color: var(--navy);
+  font-size: 18px;
+  line-height: 1.35;
+  color: var(--text-subtle);
 }
 
 .copy-prompt-button {
