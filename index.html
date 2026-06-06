@@ -169,14 +169,57 @@ resources:
   </section>
 
 
-  <!-- Slide 4a: Configurable macro title -->
+  <!-- Slide 4a: Bodied macro title -->
   <section data-background-color="#1868DB">
-    <h1 style="color:white; font-size:4.8em;">2. Configurable Macro</h1>
+    <h1 style="color:white; font-size:4.8em;">2. Bodied Macro</h1>
+    <p>Let authors place rich Confluence content inside your macro.</p>
+  </section>
+
+
+  <!-- Slide 4b: Bodied macro manifest -->
+  <section class="manifest-build-slide" data-background-color="#ffffff">
+    <div class="manifest-build-editor">
+      <div class="editor-tab-bar">
+        <div class="editor-dots">
+          <span class="editor-dot editor-dot--red"></span>
+          <span class="editor-dot editor-dot--yellow"></span>
+          <span class="editor-dot editor-dot--green"></span>
+        </div>
+        <div class="editor-tab editor-tab--active">manifest.yml</div>
+      </div>
+      <div class="manifest-code-container">
+      <pre><code class="language-yaml" data-trim data-noescape
+        data-line-numbers="1-8|3-4|5-7|8|10-12|14-16">
+modules:
+  macro:
+    - key: hello-world-bodied
+      title: Hello World Bodied --2--
+      resource: main
+      resolver:
+        function: main-handler
+      layout: bodied
+
+  function:
+    - key: main-handler
+      handler: index.handler
+
+resources:
+  - key: main
+    path: static
+      </code></pre>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Slide 5a: Configurable macro title -->
+  <section data-background-color="#1868DB">
+    <h1 style="color:white; font-size:4.8em;">3. Configurable Macro</h1>
     <p>Ask users for settings so the macro can render personalized content.</p>
   </section>
 
 
-  <!-- Slide 4b: Configurable macro manifest -->
+  <!-- Slide 5b: Configurable macro manifest -->
   <section class="manifest-build-slide" data-background-color="#ffffff">
     <div class="manifest-build-editor">
       <div class="editor-tab-bar">
@@ -214,14 +257,14 @@ resources:
   </section>
 
 
-  <!-- Slide 5a: Fullscreen macro title -->
+  <!-- Slide 6a: Fullscreen macro title -->
   <section data-background-color="#1868DB">
-    <h1 style="color:white; font-size:4.8em;">3. Fullscreen Macro</h1>
+    <h1 style="color:white; font-size:4.8em;">4. Fullscreen Macro</h1>
     <p>Use more space when configuration needs a richer picker or workflow.</p>
   </section>
 
 
-  <!-- Slide 5b: Fullscreen macro manifest -->
+  <!-- Slide 6b: Fullscreen macro manifest -->
   <section class="manifest-build-slide" data-background-color="#ffffff">
     <div class="manifest-build-editor">
       <div class="editor-tab-bar">
@@ -252,14 +295,14 @@ modules:
   </section>
 
 
-  <!-- Slide 6a: Autoconvert macro title -->
+  <!-- Slide 7a: Autoconvert macro title -->
   <section data-background-color="#1868DB">
-    <h1 style="color:white; font-size:4.8em;">4. Autoconvert Macro</h1>
+    <h1 style="color:white; font-size:4.8em;">5. Autoconvert Macro</h1>
     <p>Paste a matching URL and Confluence turns it into your macro.</p>
   </section>
 
 
-  <!-- Slide 6b: Autoconvert macro manifest -->
+  <!-- Slide 7b: Autoconvert macro manifest -->
   <section class="manifest-build-slide" data-background-color="#ffffff">
     <div class="manifest-build-editor">
       <div class="editor-tab-bar">
