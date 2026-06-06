@@ -3010,16 +3010,15 @@ section.stripe-right::after {
 .prompt-box {
   position: relative;
   width: 1300px;
-  background: #F1F2F4;
+  background: #F7F8F9;
   border: 1px solid #DCDFE4;
   border-radius: 18px;
-  box-shadow: 0 12px 40px rgba(9, 30, 66, 0.12);
   overflow: hidden;
 }
 
 .prompt-box pre {
   margin: 0 !important;
-  padding: 42px 48px !important;
+  padding: 36px 48px !important;
   background: transparent !important;
   box-shadow: none !important;
   width: 100% !important;
@@ -3028,33 +3027,35 @@ section.stripe-right::after {
 
 .prompt-box code {
   display: block;
-  max-height: 650px;
+  max-height: 610px;
   overflow: auto;
   white-space: pre-wrap;
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace !important;
-  font-size: 18px;
-  line-height: 1.35;
+  font-family: 'Charlie Text', -apple-system, sans-serif !important;
+  font-size: 22px;
+  line-height: 1.45;
   color: var(--text-subtle);
+  padding-right: 24px;
 }
 
 .copy-prompt-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 18px;
+  right: 18px;
   z-index: 2;
-  border: 0;
+  border: 1px solid #DCDFE4;
   border-radius: 8px;
-  background: var(--blue);
-  color: #ffffff;
+  background: #ffffff;
+  color: var(--text-subtle);
   font-family: 'Charlie Text', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 14px;
   cursor: pointer;
 }
 
 .copy-prompt-button:hover {
-  background: var(--blue-dark);
+  background: #F1F2F4;
+  color: var(--text);
 }
 
 /* -- Slide footer bar -- */

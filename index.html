@@ -173,33 +173,24 @@ resources:
     <h2>Prompt Rovo Studio</h2>
     <div class="prompt-box">
       <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Build a Forge Confluence basic macro.
+      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence basic macro.
 
-Goal:
-Create the smallest useful Confluence macro. It appears in the editor insert menu, renders inline on the page, and uses a Custom UI resource backed by a resolver function.
+Use this macro type when the macro only needs to render content on a Confluence page. It should not ask for settings, should not wrap editor content, and should not be created from pasted URLs.
 
-Important keywords for Rovo Studio:
-- Forge app
-- Confluence macro
-- basic macro
-- Custom UI resource
-- resolver function
-- manifest.yml modules.macro
-- resource: main
-- function: main-handler
+Keep the implementation minimal:
+- one macro module
+- one Custom UI resource
+- one resolver function if backend data is needed
+- no config block
+- no layout: bodied
+- no autoConvert block
 
-Behavior:
-- Show a simple "Hello World" experience inside the macro body.
-- Keep the macro unconfigured: no config, no autoConvert, no bodied layout.
-- Use clean names so the manifest is easy to compare with the slides.
-- Add only the minimal files needed for a working Forge macro.
-
-Relevant manifest.yml shape:
+Relevant manifest.yml pattern:
 
 modules:
   macro:
-    - key: hello-world-macro
-      title: Hello World Macro
+    - key: <macro-key>
+      title: <Macro title>
       resource: main
       resolver:
         function: main-handler
@@ -212,12 +203,7 @@ resources:
   - key: main
     path: static
 
-Implementation notes:
-- The macro key should be stable and lowercase.
-- The title should be human readable in Confluence.
-- The Custom UI should render from the static resource.
-- The resolver can return simple data for the UI to display.
-- Do not add configuration yet; this is the baseline macro pattern.</code></pre>
+Use stable lowercase keys, a clear title for the Confluence insert menu, and keep each macro instance independent. If my request includes UI details, implement those in the Custom UI. If my request needs backend data, expose it through the resolver; otherwise keep the resolver minimal.</code></pre>
     </div>
   </section>
 
@@ -269,33 +255,19 @@ resources:
     <h2>Prompt Rovo Studio</h2>
     <div class="prompt-box">
       <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Build a Forge Confluence bodied macro.
+      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence bodied macro.
 
-Goal:
-Create a macro that can wrap author-provided Confluence content. The user should be able to insert the macro and then place rich page content inside the macro body.
+Use this macro type when the macro should contain author-managed Confluence page content. The user should be able to insert the macro and then place rich text, lists, tables, mentions, or other editor content inside it.
 
-Important keywords for Rovo Studio:
-- Forge app
-- Confluence macro
-- bodied macro
-- layout: bodied
-- rich Confluence content inside the macro
-- Custom UI resource
-- resolver function
-- manifest.yml modules.macro
+The defining manifest property is layout: bodied.
+Do not replace this with configuration. A bodied macro is about editable page content inside the macro, not user settings.
 
-Behavior:
-- The macro should render a container around its body content.
-- Authors must be able to edit the content inside the macro in Confluence.
-- Keep the macro otherwise simple: no config and no autoconvert.
-- Make the visual treatment obvious so people can see where the body content lives.
-
-Relevant manifest.yml shape:
+Relevant manifest.yml pattern:
 
 modules:
   macro:
-    - key: hello-world-bodied
-      title: Hello World Bodied
+    - key: <macro-key>
+      title: <Macro title>
       resource: main
       resolver:
         function: main-handler
@@ -309,11 +281,7 @@ resources:
   - key: main
     path: static
 
-Implementation notes:
-- The critical manifest property is layout: bodied.
-- Do not confuse this with configuration; bodied means content goes inside the macro.
-- Keep the UI lightweight and explain that the macro body is managed by Confluence.
-- Use the same main resource and resolver pattern as a basic macro.</code></pre>
+Keep the macro otherwise simple unless my request says otherwise. Only add config if I explicitly ask for settings. Only add autoConvert if I explicitly ask for pasted URL conversion. Make the rendered UI visually support the body-content use case, for example by framing, labeling, summarizing, or enhancing the content the author places inside.</code></pre>
     </div>
   </section>
 
@@ -367,40 +335,23 @@ resources:
     <h2>Prompt Rovo Studio</h2>
     <div class="prompt-box">
       <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Build a Forge Confluence configurable macro.
+      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence configurable macro.
 
-Goal:
-Create a macro that asks the user for settings and then renders personalized content based on those settings.
+Use this macro type when each macro instance needs user-provided settings. The configuration should be opened from the macro edit/config flow and the rendered macro should use the saved values for that specific macro instance.
 
-Important keywords for Rovo Studio:
-- Forge app
-- Confluence macro
-- configurable macro
-- macro config
-- config resource
-- configuration UI
-- Custom UI resource
-- resolver function
-- manifest.yml modules.macro.config
+The defining manifest property is config under the macro module. Use macro configuration for per-instance values; do not store simple per-macro settings globally in app storage.
 
-Behavior:
-- The macro should have a configuration screen titled "Configure button".
-- The configuration UI should let the user enter values for a button label and target URL.
-- The rendered macro should show a button using the saved configuration.
-- If the macro has not been configured yet, show a useful empty state.
-- Keep the configuration in the macro config flow, not in app storage.
-
-Relevant manifest.yml shape:
+Relevant manifest.yml pattern:
 
 modules:
   macro:
-    - key: configurable-button-macro
-      title: Configurable Button
+    - key: <macro-key>
+      title: <Macro title>
       resource: main
       resolver:
         function: main-handler
       config:
-        title: Configure button
+        title: <Configuration title>
         resource: main
 
   function:
@@ -411,11 +362,7 @@ resources:
   - key: main
     path: static
 
-Implementation notes:
-- The key keyword is config under the macro module.
-- The config title is what the user sees when editing macro settings.
-- Use the same resource for the rendered macro and the config UI unless a separate resource is needed.
-- Make sure the UI can read the macro configuration when rendering.</code></pre>
+Implement a clear configuration UI for the fields implied by my request. Validate required fields, provide sensible defaults where useful, and show a helpful empty state when the macro has not been configured yet. Use the same resource for rendering and configuration unless the app structure benefits from a separate config resource.</code></pre>
     </div>
   </section>
 
@@ -462,41 +409,24 @@ modules:
     <h2>Prompt Rovo Studio</h2>
     <div class="prompt-box">
       <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Build a Forge Confluence macro with fullscreen configuration.
+      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence macro with fullscreen configuration.
 
-Goal:
-Create a configurable Confluence macro where the configuration flow needs more room than a small modal. Use a fullscreen config viewport for a richer picker workflow.
+Use this macro type when configuration needs more space than the normal macro config dialog: complex pickers, previews, multi-step setup, searching, filtering, or selecting multiple items.
 
-Important keywords for Rovo Studio:
-- Forge app
-- Confluence macro
-- configurable macro
-- fullscreen config
-- viewportSize: fullscreen
-- picker workflow
-- People Card macro
-- Custom UI resource
-- resolver function
-- manifest.yml modules.macro.config.viewportSize
+This is still a configurable macro. The defining difference is config.viewportSize: fullscreen.
+Store the chosen values as macro configuration for the individual macro instance.
 
-Behavior:
-- The macro should be called "People Card".
-- When configuring the macro, open a fullscreen picker titled "Pick people".
-- The picker should let the user select one or more people.
-- The rendered macro should show the selected people as cards or a compact list.
-- Include a clear empty state if no people have been selected.
-
-Relevant manifest.yml shape:
+Relevant manifest.yml pattern:
 
 modules:
   macro:
-    - key: hello-world-fullscreen-macro
-      title: People Card
+    - key: <macro-key>
+      title: <Macro title>
       resource: main
       resolver:
         function: main-handler
       config:
-        title: Pick people
+        title: <Configuration title>
         resource: main
         viewportSize: fullscreen
 
@@ -508,11 +438,7 @@ resources:
   - key: main
     path: static
 
-Implementation notes:
-- The important difference from a normal configurable macro is viewportSize: fullscreen.
-- Use fullscreen only for workflows that benefit from more space.
-- Keep the selected values in macro configuration so each macro instance can have different people.
-- Do not implement this as a global app setting.</code></pre>
+Design the configuration UI for a fullscreen workflow: clear heading, primary action, cancel/back behavior, searchable or browsable choices if relevant, and a summary of the selected configuration. The rendered macro should handle missing or partial configuration gracefully.</code></pre>
     </div>
   </section>
 
@@ -561,52 +487,35 @@ modules:
     <h2>Prompt Rovo Studio</h2>
     <div class="prompt-box">
       <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Build a Forge Confluence autoconvert macro.
+      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence autoconvert macro.
 
-Goal:
-Create a macro that Confluence inserts automatically when a user pastes a matching URL into the editor.
+Use this macro type when pasting a URL into the Confluence editor should automatically replace the URL with a macro. The macro should be driven by the pasted URL and render a useful preview, embed, card, or enriched representation of that URL.
 
-Important keywords for Rovo Studio:
-- Forge app
-- Confluence macro
-- autoconvert macro
-- autoConvert
-- matchers
-- URL pattern
-- pasted URL conversion
-- FIFA team URL
-- Custom UI resource
-- resolver function
-- manifest.yml modules.macro.autoConvert.matchers
+The defining manifest property is autoConvert.matchers. Add URL patterns for the domains and paths from my request. Keep patterns specific enough to avoid converting unrelated links, but include common variants such as trailing slashes when needed.
 
-Behavior:
-- When a user pastes a matching FIFA team URL, Confluence should convert it into this macro.
-- The macro should render a preview or card for that team URL.
-- Match both team overview URLs and nested team URLs.
-- Keep the matcher list readable and specific enough to avoid converting unrelated pages.
-- The macro should still have a normal title and resource like other macros.
-
-Relevant manifest.yml shape:
+Relevant manifest.yml pattern:
 
 modules:
   macro:
-    - key: autoconvert-hello-world
-      title: Autoconvert Hello World
+    - key: <macro-key>
+      title: <Macro title>
       resource: main
       resolver:
         function: main-handler
       autoConvert:
         matchers:
-          - pattern: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/*"
-          - pattern: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/*/"
-          - pattern: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/*/*"
-          - pattern: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/*/*/"
+          - pattern: "https://example.com/path/*"
+          - pattern: "https://example.com/path/*/"
 
-Implementation notes:
-- The critical manifest block is autoConvert.matchers.
-- Use quoted URL patterns.
-- Include trailing-slash variants if the target site may produce them.
-- Keep the rendered macro focused on the pasted URL context.</code></pre>
+  function:
+    - key: main-handler
+      handler: index.handler
+
+resources:
+  - key: main
+    path: static
+
+If my request names a URL format, derive the matcher patterns from it. If the URL contains IDs or slugs, use wildcard segments where appropriate. The rendered macro should preserve or use the original URL context. Do not add macro configuration unless I explicitly ask for settings in addition to autoconvert.</code></pre>
     </div>
   </section>
 
