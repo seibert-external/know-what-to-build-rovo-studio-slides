@@ -169,44 +169,6 @@ resources:
   </section>
 
 
-  <section class="prompt-slide" data-background-color="#ffffff">
-    <h2>Prompt Rovo Studio</h2>
-    <div class="prompt-box">
-      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence basic macro.
-
-Use this macro type when the macro only needs to render content on a Confluence page. It should not ask for settings, should not wrap editor content, and should not be created from pasted URLs.
-
-Keep the implementation minimal:
-- one macro module
-- one Custom UI resource
-- one resolver function if backend data is needed
-- no config block
-- no layout: bodied
-- no autoConvert block
-
-Relevant manifest.yml pattern:
-
-modules:
-  macro:
-    - key: <macro-key>
-      title: <Macro title>
-      resource: main
-      resolver:
-        function: main-handler
-
-  function:
-    - key: main-handler
-      handler: index.handler
-
-resources:
-  - key: main
-    path: static
-
-Use stable lowercase keys, a clear title for the Confluence insert menu, and keep each macro instance independent. If my request includes UI details, implement those in the Custom UI. If my request needs backend data, expose it through the resolver; otherwise keep the resolver minimal.</code></pre>
-    </div>
-  </section>
-
 
   <!-- Slide 4a: Bodied macro title -->
   <section data-background-color="#1868DB">
@@ -250,40 +212,6 @@ resources:
     </div>
   </section>
 
-
-  <section class="prompt-slide" data-background-color="#ffffff">
-    <h2>Prompt Rovo Studio</h2>
-    <div class="prompt-box">
-      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence bodied macro.
-
-Use this macro type when the macro should contain author-managed Confluence page content. The user should be able to insert the macro and then place rich text, lists, tables, mentions, or other editor content inside it.
-
-The defining manifest property is layout: bodied.
-Do not replace this with configuration. A bodied macro is about editable page content inside the macro, not user settings.
-
-Relevant manifest.yml pattern:
-
-modules:
-  macro:
-    - key: <macro-key>
-      title: <Macro title>
-      resource: main
-      resolver:
-        function: main-handler
-      layout: bodied
-
-  function:
-    - key: main-handler
-      handler: index.handler
-
-resources:
-  - key: main
-    path: static
-
-Keep the macro otherwise simple unless my request says otherwise. Only add config if I explicitly ask for settings. Only add autoConvert if I explicitly ask for pasted URL conversion. Make the rendered UI visually support the body-content use case, for example by framing, labeling, summarizing, or enhancing the content the author places inside.</code></pre>
-    </div>
-  </section>
 
 
   <!-- Slide 5a: Configurable macro title -->
@@ -331,41 +259,6 @@ resources:
   </section>
 
 
-  <section class="prompt-slide" data-background-color="#ffffff">
-    <h2>Prompt Rovo Studio</h2>
-    <div class="prompt-box">
-      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence configurable macro.
-
-Use this macro type when each macro instance needs user-provided settings. The configuration should be opened from the macro edit/config flow and the rendered macro should use the saved values for that specific macro instance.
-
-The defining manifest property is config under the macro module. Use macro configuration for per-instance values; do not store simple per-macro settings globally in app storage.
-
-Relevant manifest.yml pattern:
-
-modules:
-  macro:
-    - key: <macro-key>
-      title: <Macro title>
-      resource: main
-      resolver:
-        function: main-handler
-      config:
-        title: <Configuration title>
-        resource: main
-
-  function:
-    - key: main-handler
-      handler: index.handler
-
-resources:
-  - key: main
-    path: static
-
-Implement a clear configuration UI for the fields implied by my request. Validate required fields, provide sensible defaults where useful, and show a helpful empty state when the macro has not been configured yet. Use the same resource for rendering and configuration unless the app structure benefits from a separate config resource.</code></pre>
-    </div>
-  </section>
-
 
   <!-- Slide 6a: Fullscreen macro title -->
   <section data-background-color="#1868DB">
@@ -404,43 +297,6 @@ modules:
     </div>
   </section>
 
-
-  <section class="prompt-slide" data-background-color="#ffffff">
-    <h2>Prompt Rovo Studio</h2>
-    <div class="prompt-box">
-      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence macro with fullscreen configuration.
-
-Use this macro type when configuration needs more space than the normal macro config dialog: complex pickers, previews, multi-step setup, searching, filtering, or selecting multiple items.
-
-This is still a configurable macro. The defining difference is config.viewportSize: fullscreen.
-Store the chosen values as macro configuration for the individual macro instance.
-
-Relevant manifest.yml pattern:
-
-modules:
-  macro:
-    - key: <macro-key>
-      title: <Macro title>
-      resource: main
-      resolver:
-        function: main-handler
-      config:
-        title: <Configuration title>
-        resource: main
-        viewportSize: fullscreen
-
-  function:
-    - key: main-handler
-      handler: index.handler
-
-resources:
-  - key: main
-    path: static
-
-Design the configuration UI for a fullscreen workflow: clear heading, primary action, cancel/back behavior, searchable or browsable choices if relevant, and a summary of the selected configuration. The rendered macro should handle missing or partial configuration gracefully.</code></pre>
-    </div>
-  </section>
 
 
   <!-- Slide 7a: Autoconvert macro title -->
@@ -482,42 +338,6 @@ modules:
     </div>
   </section>
 
-
-  <section class="prompt-slide" data-background-color="#ffffff">
-    <h2>Prompt Rovo Studio</h2>
-    <div class="prompt-box">
-      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
-      <pre><code data-trim>Append this guidance to my request and build it as a Forge Confluence autoconvert macro.
-
-Use this macro type when pasting a URL into the Confluence editor should automatically replace the URL with a macro. The macro should be driven by the pasted URL and render a useful preview, embed, card, or enriched representation of that URL.
-
-The defining manifest property is autoConvert.matchers. Add URL patterns for the domains and paths from my request. Keep patterns specific enough to avoid converting unrelated links, but include common variants such as trailing slashes when needed.
-
-Relevant manifest.yml pattern:
-
-modules:
-  macro:
-    - key: <macro-key>
-      title: <Macro title>
-      resource: main
-      resolver:
-        function: main-handler
-      autoConvert:
-        matchers:
-          - pattern: "https://example.com/path/*"
-          - pattern: "https://example.com/path/*/"
-
-  function:
-    - key: main-handler
-      handler: index.handler
-
-resources:
-  - key: main
-    path: static
-
-If my request names a URL format, derive the matcher patterns from it. If the URL contains IDs or slugs, use wildcard segments where appropriate. The rendered macro should preserve or use the original URL context. Do not add macro configuration unless I explicitly ask for settings in addition to autoconvert.</code></pre>
-    </div>
-  </section>
 
 
   <!-- Slide 7a: Rovo agent title -->
@@ -719,17 +539,6 @@ export const insertPeopleListMacro = async (
     }
     Reveal.on('slidechanged', updateFooter);
     updateFooter();
-  });
-
-  document.querySelectorAll('.copy-prompt-button').forEach((button) => {
-    button.addEventListener('click', async () => {
-      const code = button.parentElement?.querySelector('code')?.innerText ?? '';
-      await navigator.clipboard.writeText(code.trim());
-      button.textContent = 'Copied!';
-      window.setTimeout(() => {
-        button.textContent = 'Copy to clipboard';
-      }, 1600);
-    });
   });
 </script>
 </body>
