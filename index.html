@@ -169,6 +169,32 @@ resources:
   </section>
 
 
+  <section class="prompt-slide" data-background-color="#ffffff">
+    <h2>Prompt Rovo Studio</h2>
+    <div class="prompt-box">
+      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
+      <pre><code data-trim>Build a Forge Confluence basic macro.
+
+It should render a simple block on the page.
+Use a macro module with this manifest shape:
+
+modules:
+  macro:
+    - key: hello-world-macro
+      title: Hello World Macro
+      resource: main
+      resolver:
+        function: main-handler
+  function:
+    - key: main-handler
+      handler: index.handler
+resources:
+  - key: main
+    path: static</code></pre>
+    </div>
+  </section>
+
+
   <!-- Slide 4a: Bodied macro title -->
   <section data-background-color="#1868DB">
     <h1 style="color:white; font-size:4.8em;">2. Bodied Macro</h1>
@@ -208,6 +234,27 @@ resources:
     path: static
       </code></pre>
       </div>
+    </div>
+  </section>
+
+
+  <section class="prompt-slide" data-background-color="#ffffff">
+    <h2>Prompt Rovo Studio</h2>
+    <div class="prompt-box">
+      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
+      <pre><code data-trim>Build a Forge Confluence bodied macro.
+
+The macro must allow authors to place rich Confluence content inside it.
+Use layout: bodied in the macro manifest:
+
+modules:
+  macro:
+    - key: hello-world-bodied
+      title: Hello World Bodied
+      resource: main
+      resolver:
+        function: main-handler
+      layout: bodied</code></pre>
     </div>
   </section>
 
@@ -257,6 +304,29 @@ resources:
   </section>
 
 
+  <section class="prompt-slide" data-background-color="#ffffff">
+    <h2>Prompt Rovo Studio</h2>
+    <div class="prompt-box">
+      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
+      <pre><code data-trim>Build a Forge Confluence configurable macro.
+
+The user should configure settings before the macro renders.
+Add a config section that opens a configuration UI:
+
+modules:
+  macro:
+    - key: configurable-button-macro
+      title: Configurable Button
+      resource: main
+      resolver:
+        function: main-handler
+      config:
+        title: Configure button
+        resource: main</code></pre>
+    </div>
+  </section>
+
+
   <!-- Slide 6a: Fullscreen macro title -->
   <section data-background-color="#1868DB">
     <h1 style="color:white; font-size:4.8em;">4. Fullscreen Macro</h1>
@@ -291,6 +361,30 @@ modules:
         viewportSize: fullscreen
       </code></pre>
       </div>
+    </div>
+  </section>
+
+
+  <section class="prompt-slide" data-background-color="#ffffff">
+    <h2>Prompt Rovo Studio</h2>
+    <div class="prompt-box">
+      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
+      <pre><code data-trim>Build a Forge Confluence macro with fullscreen configuration.
+
+The configuration should use a rich picker workflow.
+Set config.viewportSize to fullscreen:
+
+modules:
+  macro:
+    - key: hello-world-fullscreen-macro
+      title: People Card
+      resource: main
+      resolver:
+        function: main-handler
+      config:
+        title: Pick people
+        resource: main
+        viewportSize: fullscreen</code></pre>
     </div>
   </section>
 
@@ -331,6 +425,30 @@ modules:
           - pattern: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/*/*/"
       </code></pre>
       </div>
+    </div>
+  </section>
+
+
+  <section class="prompt-slide" data-background-color="#ffffff">
+    <h2>Prompt Rovo Studio</h2>
+    <div class="prompt-box">
+      <button class="copy-prompt-button" type="button">Copy to clipboard</button>
+      <pre><code data-trim>Build a Forge Confluence autoconvert macro.
+
+When a user pastes matching FIFA team URLs, Confluence should convert the URL into this macro.
+Use autoConvert matchers in the manifest:
+
+modules:
+  macro:
+    - key: autoconvert-hello-world
+      title: Autoconvert Hello World
+      resource: main
+      resolver:
+        function: main-handler
+      autoConvert:
+        matchers:
+          - pattern: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/*"
+          - pattern: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/*/*"</code></pre>
     </div>
   </section>
 
@@ -534,6 +652,17 @@ export const insertPeopleListMacro = async (
     }
     Reveal.on('slidechanged', updateFooter);
     updateFooter();
+  });
+
+  document.querySelectorAll('.copy-prompt-button').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const code = button.parentElement?.querySelector('code')?.innerText ?? '';
+      await navigator.clipboard.writeText(code.trim());
+      button.textContent = 'Copied!';
+      window.setTimeout(() => {
+        button.textContent = 'Copy to clipboard';
+      }, 1600);
+    });
   });
 </script>
 </body>
