@@ -1310,11 +1310,46 @@
 .title-slide {
   padding: 0 !important;
   flex-direction: row !important;
+  position: relative;
+  isolation: isolate;
+}
+
+.title-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.title-frame img {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.title-frame-top {
+  top: 0;
+}
+
+.title-frame-bottom {
+  bottom: 0;
+}
+
+.title-slide > :not(.title-frame) {
+  position: relative;
+  z-index: 2;
 }
 
 .title-left {
   flex: 0 0 38%;
-  background: var(--bg-white);
+  background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1324,7 +1359,7 @@
 
 .title-right {
   flex: 1;
-  background: var(--bg-light);
+  background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: center;
