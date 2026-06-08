@@ -12,6 +12,6 @@
   "license": "ISC",
   "packageManager": "pnpm@10.26.2",
   "dependencies": {
-    "reveal.js": "^5.2.1"
+    "reveal.js": "5.2.1"
   }
 }
